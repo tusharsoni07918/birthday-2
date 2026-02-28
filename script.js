@@ -240,3 +240,18 @@ photoStyle.textContent = `
     }
 `;
 document.head.appendChild(photoStyle);
+window.addEventListener("load", function () {
+    const music = document.getElementById("birthdaySong");
+
+    // Try autoplay
+    const playPromise = music.play();
+
+    if (playPromise !== undefined) {
+        playPromise.catch(() => {
+            // If autoplay blocked, start on first click
+            document.body.addEventListener("click", function () {
+                music.play();
+            }, { once: true });
+        });
+    }
+});
